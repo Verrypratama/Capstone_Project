@@ -14,7 +14,7 @@ export function fetchNews(query) {
       const queryString = qs.stringify(
         {
           ...query,
-          "api-key": "xbl8NBacUqyK9VRJMGsjd2t0GcFLxs5m",
+          "api-key": import.meta.env.VITE_API_KEY,
         },
         { encode: true }
       );
