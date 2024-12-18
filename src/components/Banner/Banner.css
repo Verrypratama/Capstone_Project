@@ -1,0 +1,24 @@
+.coursel-Handle {
+  width: 80rem;
+  height: 110px;
+}
+
+.coursel-img {
+  width: 100%;
+  height: 110px;
+}
+
+
+@media (max-width: 768px) {
+  .coursel-Handle {
+    width: 100%; 
+    height: auto;
+  }
+
+  .coursel-img {
+    width: 100%; 
+    height: auto; 
+  }
+}
+
+
