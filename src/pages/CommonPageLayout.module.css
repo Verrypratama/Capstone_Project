@@ -6,7 +6,7 @@
     flex-direction: column;
     width: 100%;
     padding: 10px;
-    box-sizing: border-box; /* Pastikan padding tidak melampaui lebar kontainer */
+    box-sizing: border-box;
 }
 
 .pageTitleContainer {

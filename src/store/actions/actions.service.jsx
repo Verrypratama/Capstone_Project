@@ -19,10 +19,10 @@ export function fetchNews(query) {
         { encode: true }
       );
 
-      // Mengambil data dari API tanpa log
+      
       const response = await axios.get(`${BASE_API_URL}${queryString}`);
 
-      // Memastikan response berhasil
+     
       if (response.status !== 200) {
         throw new Error("Failed to fetch data from NYT API");
       }

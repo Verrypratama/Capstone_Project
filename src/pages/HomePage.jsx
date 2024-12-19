@@ -13,7 +13,6 @@ function HomePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("#1 useEffect()");
     const query = {
       fq: `glocations:("Indonesia")`,
     };

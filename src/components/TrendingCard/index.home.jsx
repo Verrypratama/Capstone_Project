@@ -21,7 +21,6 @@ function TrendingCards({ newsData, onSave, savedNews = [], onRemove, isHomePage 
 
   return (
     <div className="container my-5">
-      {/* Section untuk konten utama */}
       <div className="row text-center mb-4 flex-column-reverse flex-md-row">
         <div className="col-md-7 mb-4 mb-md-0">
           <div className="card shadow-lg border-0">
@@ -109,7 +108,6 @@ function TrendingCards({ newsData, onSave, savedNews = [], onRemove, isHomePage 
         </div>
       </div>
 
-      {/* Section untuk trending now */}
       <div className="text-start pb-3">
         <h2 className="fw-bold text-secondary">Trending Now</h2>
       </div>

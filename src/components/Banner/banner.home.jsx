@@ -1,5 +1,5 @@
 import React from "react";
-import "./Banner.css"; // Tambahkan file CSS untuk gaya khusus jika diperlukan
+import "./Banner.css";
 
 function Header() {
   return (
