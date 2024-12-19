@@ -14,4 +14,4 @@ Check out the live demo of the app here:
 ## How to Run
 1. Clone this repository:
    ```bash
-   git clone https://github.com/<your-username>/<your-repo>.git
+   git clone (https://github.com/Verrypratama/Capstone_Project.git)
