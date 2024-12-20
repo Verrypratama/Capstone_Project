@@ -8,13 +8,18 @@ import { NEWS_REDUCER_CASES } from "../store/reducers/redux.service.jsx";
 import TrendingCards from "../components/TrendingCard/index.home.jsx";
 import HeaderProgramming from "../components/Banner/Banner.programming.jsx";
 import DateFilter from "../components/Filter/DateFilter";
+import Pagination from "../components/pagination/Pagination.jsx";
 
 function ProgrammingPage() {
   const newsReducer = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0); 
+  const [totalPages, setTotalPages] = useState(0); 
+  const itemsPerPage = 10;
 
+  
   const handleSearchByDate = async (startDate, endDate) => {
     setLoading(true);
     const query = {
@@ -22,20 +27,38 @@ function ProgrammingPage() {
       fq: 'news_desk:("Technology")',
       begin_date: startDate.replace(/-/g, ""),
       end_date: endDate.replace(/-/g, ""),
+      page: currentPage, 
     };
     dispatch(fetchNews(query))
       .catch((error) => console.error("Error fetching news:", error))
       .finally(() => setLoading(false));
+    setCurrentPage(0);
   };
 
+  
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  
   useEffect(() => {
-    dispatch(fetchNews({
+    setLoading(true);
+    const query = {
       q: "Programming",
       fq: 'news_desk:("Technology")',
-    }))
-      .catch(error => console.error("Error fetching news:", error));
-  }, [dispatch]);
+      page: currentPage, 
+    };
+    dispatch(fetchNews(query))
+      .then((data) => {
+       
+        const totalHits = data.meta.hits || 0; 
+        setTotalPages(Math.ceil(totalHits / itemsPerPage));
+      })
+      .catch((error) => console.error("Error fetching news:", error))
+      .finally(() => setLoading(false));
+  }, [dispatch, currentPage]);
 
+ 
   const handleSave = (news) => {
     dispatch({
       type: NEWS_REDUCER_CASES.SAVE_NEWS,
@@ -43,6 +66,7 @@ function ProgrammingPage() {
     });
   };
 
+  
   const handleRemove = (news) => {
     dispatch({
       type: NEWS_REDUCER_CASES.REMOVE_NEWS,
@@ -58,7 +82,7 @@ function ProgrammingPage() {
           <h1>Programming News</h1>
         </section>
         <HeaderProgramming />
-        
+
         <TrendingCards
           newsData={newsReducer.news}
           onSave={handleSave}
@@ -85,6 +109,12 @@ function ProgrammingPage() {
             <p>No news available</p>
           )}
         </section>
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </section>
     </main>
   );
