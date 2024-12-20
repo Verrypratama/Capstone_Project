@@ -2,15 +2,29 @@ import styles from "./CommonPageLayout.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Navbar } from "../components/Navbar";
 import NewsCard from "../components/NewsCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NEWS_REDUCER_CASES } from "../store/reducers/redux.service.jsx";
 import { fetchNews } from "../store/actions/actions.service";
 import Header from "../components/Banner/banner.home.jsx";
 import TrendingCards from "../components/TrendingCard/index.home.jsx";
+import DateFilter from "../components/Filter/DateFilter.jsx"
 
 function HomePage() {
   const newsReducer = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+
+  const handleSearchByDate = async (startDate, endDate) => {
+    setLoading(true);
+    const query = {
+      fq: `glocations:("Indonesia")`,
+      begin_date: startDate.replace(/-/g, ""),
+      end_date: endDate.replace(/-/g, ""),
+    };
+    dispatch(fetchNews(query));
+    setLoading(false);
+  };
 
   useEffect(() => {
     const query = {
@@ -48,12 +62,18 @@ function HomePage() {
           onRemove={handleRemove}
           isHomePage={true}
         />
-        <section className={styles.newsContainer}>
-          <div className="ms-4 mb-0">
+
+          <div className="ms-4 mb-3 row text-center">
             <h2 className="fw-bold">Latest News In Indonesia</h2>
           </div>
+        
+        <DateFilter onSearchByDate={handleSearchByDate} />
+        <section className={styles.newsContainer}>
+
           <hr className="w-100" />
-          {newsReducer.news.length > 0 ? (
+          {loading ? (
+            <p>Loading news...</p>
+          ) : newsReducer.news.length > 0 ? (
             <NewsCard
               newsData={newsReducer.news}
               onSave={handleSave}
@@ -67,7 +87,6 @@ function HomePage() {
         </section>
       </section>
     </main>
-
   );
 }
 

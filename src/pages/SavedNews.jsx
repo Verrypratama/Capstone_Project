@@ -41,7 +41,7 @@ function SavedNewsPage() {
               onSave={handleSave}
               savedNews={savedNews}
               onRemove={handleRemove}
-              isHomePage={false} // Mengirimkan isHomePage = false untuk SavedNewsPage
+              isHomePage={false}
             />
           ) : (
             <p>No saved news available</p>
