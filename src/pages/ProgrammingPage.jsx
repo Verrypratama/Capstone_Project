@@ -46,17 +46,21 @@ function ProgrammingPage() {
     const query = {
       q: "Programming",
       fq: 'news_desk:("Technology")',
-      page: currentPage, 
+      page: currentPage,
     };
     dispatch(fetchNews(query))
       .then((data) => {
-       
-        const totalHits = data.meta.hits || 0; 
+
+        const totalHits = data?.meta?.hits || 0; 
         setTotalPages(Math.ceil(totalHits / itemsPerPage));
       })
-      .catch((error) => console.error("Error fetching news:", error))
+      .catch((error) => {
+        console.error("Error fetching news:", error);
+        setTotalPages(0); 
+      })
       .finally(() => setLoading(false));
   }, [dispatch, currentPage]);
+  
 
  
   const handleSave = (news) => {

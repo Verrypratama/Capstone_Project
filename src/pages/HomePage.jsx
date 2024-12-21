@@ -42,16 +42,17 @@ function HomePage() {
     setLoading(true);
     const query = {
       fq: `glocations:("Indonesia")`,
-      page: currentPage, 
+      page: currentPage,
     };
     dispatch(fetchNews(query))
       .then((data) => {
-
-        const totalHits = data.meta.hits || 0;
+       
+        const totalHits = data?.meta?.hits || 0; 
         setTotalPages(Math.ceil(totalHits / itemsPerPage));
       })
       .finally(() => setLoading(false));
   }, [dispatch, currentPage]);
+  
 
   const handleSave = (news) => {
     dispatch({

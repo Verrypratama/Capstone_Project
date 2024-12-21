@@ -48,7 +48,7 @@ function CovidPage() {
     dispatch(fetchNews(query))
       .then((data) => {
 
-        const totalHits = data.meta.hits || 0; 
+        const totalHits = data?.meta?.hits || 0; 
         setTotalPages(Math.ceil(totalHits / itemsPerPage));
       })
       .catch((error) => console.error("Error fetching news:", error))
